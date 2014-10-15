@@ -1,0 +1,63 @@
+$icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
+$fa-font-path: "/bower_components/font-awesome/fonts";
+
+@import 'bootstrap-sass-official/vendor/assets/stylesheets/bootstrap';
+@import 'font-awesome/scss/font-awesome';
+
+/**
+ * App-wide Styles
+ */
+ 
+ //removes left spacing for the first navbar tab
+#leftnav {
+	position: relative;
+    left: -1%;
+}
+
+.browsehappy {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+
+//provides margins for desktop users only
+	@media screen and (min-width: 500px) {
+		.margin-content {
+			width:80%;
+			margin-top: 60px; //might have to get height of navbar for screen compatibility
+		}
+		//centers app name in the navbar
+		.navbar-brand {
+			position: absolute;
+			left:45%;
+			top:0%;
+		}
+	}
+	@media screen and (max-width: 500px) {
+		.margin-content {
+			width:100%;		//unnecessary but will be kept for possible future changes
+			margin-top: 60px;
+		}
+		//put app name on the left side of the navbar
+		.navbar-brand {
+			position: absolute;
+			left:40%;
+			top:0%;
+		}
+	}
+	
+.centered {
+	display:block;
+   // margin: 0 auto;
+	text-align:center;
+}
+
+
+// Component styles are injected through grunt
+// injector
+@import 'account/login/login.scss';
+@import 'admin/admin.scss';
+@import 'guides/guides.scss';
+@import 'main/main.scss';
+// endinjector
