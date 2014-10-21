@@ -164,11 +164,28 @@ angular.module('DIYhub')
 	  console.log($scope.compareNew[200]);//undefined
 	  
 	 //if($scope.compareNew.length>$scope.compareOld.length)
+	 
+	 
+	 
+/*	 YESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS FINALLY ----------------------------------- ugdyi78g 78 6f7t8 d76t md
+var getAddedorRemovedItem = function (sourceArray1, sourceArray2) {
+    var added = [], removed = [];
+    sourceArray1.forEach(function(item){
+        if (sourceArray2.indexOf(item) == -1) {
+            removed.push(item);
+        }
+    });
+    sourceArray2.forEach(function (item) {
+        if (sourceArray1.indexOf(item) == -1) {
+            added.push(item);
+        }
+   });*/
+	 
 	 var insertions=[];//rename to insertions
 	 var deletions=[];
 	 var storeDeletions=[];
-	 var wasDetetions = false;
-	 var insertionCheck = 0;
+	 var wasDeletions = false;
+	 //var insertionCheck = 0;
 	 var checkDel=false;
 	 var i5;
 	  //var streak=0; //look up clojures
@@ -176,6 +193,7 @@ angular.module('DIYhub')
 	  for(var i=0; i<$scope.compareNew.length; i++)
 	  {
 	  	console.log("Reached the loop! " + i);
+		var insertionCheck = 0;
 		//var i3=0;//was var i3=i;
 		for(var i2=0; i2<$scope.compareOld.length; i2++)
 		{
@@ -198,21 +216,25 @@ angular.module('DIYhub')
 		
 			if($scope.compareNew[i]!==$scope.compareOld[i2])
 			{
+				
 				//streak=0;
-				for(var i3=insertionCheck; i3<$scope.compareNew.length; i3++)
+				for(var i3=i2; i3<$scope.compareNew.length; i3++)//i2 was insertionCheck
 				{
 					console.log("i3: " + i3);
-					deletions[i3];
-					if($scope.compareNew[i]===$scope.compareOld[i3])
+					//deletions[i3];
+					if($scope.compareNew[i]===$scope.compareOld[i3])//<-----------------------------------------
 					{
+						//i3++;
+						deletions[i3]=true;
+						//i3--;
 						console.log("Deletions were made at index: " + i3);
-						wasDetetions=true;
+						wasDeletions=true;
 						i3=$scope.compareNew.length;
 					}
 
 				}
 				
-				if(wasDetetions===false)
+				if(wasDeletions===false)
 				{
 					console.log("Deletions array before empty " + deletions);
 					deletions=[];
@@ -220,9 +242,9 @@ angular.module('DIYhub')
 					console.log("Insertion! " + i);
 					insertions[i]=true;
 				}
-				if(wasDetetions===true)
+				if(wasDeletions===true)
 				{
-					wasDetetions=false;
+					wasDeletions=false;
 					//vsr i20 = something else something else is 0 if storeDel length is undefined
 					for(var i20=storeDeletions.length, i9=0; i9<deletions.length; i9++, i20++)
 					{
@@ -233,7 +255,7 @@ angular.module('DIYhub')
 					deletions=[];
 					i3=$scope.compareNew.length;
 				}
-				if(wasDetetions===undefined)
+				if(wasDeletions===undefined)
 				{
 					console.log("INNER LOOP ERROR FOR COMPARE NEW TO OLD GUIDE");
 				}
@@ -281,12 +303,12 @@ angular.module('DIYhub')
 	  for(var i4=0; i4<$scope.compareNew.length; i4++)
 	  {
 		console.log("COMPARE USEING NEW INSERTIONS: " + insertions[i4]);
-		console.log("COMPARE USEING NEW DELETIONS: " + storeDeletions[i20]);
+		console.log("COMPARE USEING NEW DELETIONS: " + storeDeletions[i4]);//was i20
 	  }
-	  for(var i4=0; i4<$scope.compareOld.length; i4++)
+	  for(var i6=0; i6<$scope.compareOld.length; i6++)//was i4
 	  {
-		console.log("COMPARE USEING OLD INSERTIONS: " + insertions[i4]);
-		console.log("COMPARE USEING OLD DELETIONS: " + storeDeletions[i20]);
+		console.log("COMPARE USEING OLD INSERTIONS: " + insertions[i6]);//was i4
+		console.log("COMPARE USEING OLD DELETIONS: " + storeDeletions[i6]);//was i20
 	  }
 	 
 

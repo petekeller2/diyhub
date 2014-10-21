@@ -7,99 +7,102 @@
     <img src="assets/images/yeoman.png" alt="I'm Yeoman">
   </div>
 </header>
-
-<div class="container-fluid margin-content">
-  <div class="row">
-    <div class="col-lg-12">
-      <h1 class="page-header">Features:</h1>
-      <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="thing in awesomeThings">
-        <li><a href="#" tooltip="{{thing.info}}">{{thing.name}}<button type="button" class="close" ng-click="deleteThing(thing)">&times;</button></a></li>
-      </ul>
-    </div>
-  </div>
-
-  <form class="thing-form">
-    <label>Syncs in realtime across clients</label>
-    <p class="input-group">
-      <input type="text" class="form-control" placeholder="Add a new thing here." ng-model="newThing">
-	  <input type="text" class="form-control" placeholder="Add description here." ng-model="newDescription">
-      <span class="input-group-btn">
-        <button type="submit" class="btn btn-primary" ng-click="addThing()">Add New</button>
-      </span>
-    </p>
-  </form>
-  
-   <form class="chat-form">
-    <label>Chat</label>
-    <p class="input-group">
-      <input type="text" class="form-control" placeholder="Add a new thing here." ng-model="newMessage">
-	  <input type="text" class="form-control" placeholder="Add description here." ng-model="newUsername">
-      <span class="input-group-btn">
-        <button type="submit" class="btn btn-primary" ng-click="addChat()">Add New Message</button>
-      </span>
-    </p>
-  </form>
-		   <div ng-hide="opened"> 
-
-      <h1 class="page-header">Chats:</h1>
-      <div ng-repeat="text in texts">
-			<p ng-click="toggle(text)">{{text.message}}</p>
-	  </div>
-	  </div>
-<!-- 		<div ng-show="opened">
-	       <form class="chat-update-form-new">
-		<label>Chat Update New</label>
-		<p class="input-group"> -->
-		<div ng-show="opened">
-			 <form class="chat-update-form-new"> 
-				 <label>Chat Update New</label> 
-				 <p class="input-group"> 
-					<div id='editText'></div>
-					 <span class="input-group-btn"></span> 
-				 </p> 
-			</form> 
-			<button type="submit" class="btn btn-primary" ng-click="updateChat(textSave)">Update</button> 
+<div class="row container-fluid">
+	<div class="col-md-1 col-xs-0"></div>
+	<div class="container-fluid margin-content col-md-10 col-xs-12">
+	  <div class="row">
+		<div class="col-lg-12">
+		  <h1 class="page-header">Features:</h1>
+		  <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="thing in awesomeThings">
+			<li><a href="#" tooltip="{{thing.info}}">{{thing.name}}<button type="button" class="close" ng-click="deleteThing(thing)">&times;</button></a></li>
+		  </ul>
 		</div>
-<!-- 			<span class="input-group-btn">
-			  </span>
-		</p>
-		</form>
-  				<button type="submit" class="btn btn-primary" ng-click="updateChat(textSave)">Update</button>
-			</div> -->
-	  		<!--   </div> -->
+	  </div>
 
-	<!--  <div ng-repeat="text in texts" ng-if="$first">
-	  			<textarea rows="4" cols="50" ng-model="$parent.updateMessage">
-					{{text.message}}
-				</textarea>
-      </div> -->
-<!-- 			<div ng-show="opened">
-
-	       <form class="chat-update-form-new">
-		<label>Chat Update New</label>
+	  <form class="thing-form">
+		<label>Syncs in realtime across clients</label>
 		<p class="input-group">
-			<div id='editText'></div>
-			<span class="input-group-btn">
-			  </span>
+		  <input type="text" class="form-control" placeholder="Add a new thing here." ng-model="newThing">
+		  <input type="text" class="form-control" placeholder="Add description here." ng-model="newDescription">
+		  <span class="input-group-btn">
+			<button type="submit" class="btn btn-primary" ng-click="addThing()">Add New</button>
+		  </span>
 		</p>
-  </form>
-  				<button type="submit" class="btn btn-primary" ng-click="updateChat(textSave)">Update</button>
-			</div> -->
+	  </form>
+	  
+	   <form class="chat-form">
+		<label>Chat</label>
+		<p class="input-group">
+		  <input type="text" class="form-control" placeholder="Add a new thing here." ng-model="newMessage">
+		  <input type="text" class="form-control" placeholder="Add description here." ng-model="newUsername">
+		  <span class="input-group-btn">
+			<button type="submit" class="btn btn-primary" ng-click="addChat()">Add New Message</button>
+		  </span>
+		</p>
+	  </form>
+			   <div ng-hide="opened"> 
 
-     <form class="chat-update-form">
-    <label>Chat Update</label>
-    <p class="input-group">
-      <!-- <input type="text" class="form-control" placeholder="Update here." ng-model="updateMessage"> -->
-      <span class="input-group-btn">
-      </span>
-    </p>
-  </form>
-  
+		  <h1 class="page-header">Chats:</h1>
+		  <div ng-repeat="text in texts">
+				<p ng-click="toggle(text)">{{text.message}}</p>
+		  </div>
+		  </div>
+	<!-- 		<div ng-show="opened">
+			   <form class="chat-update-form-new">
+			<label>Chat Update New</label>
+			<p class="input-group"> -->
+			<div ng-show="opened">
+				 <form class="chat-update-form-new"> 
+					 <label>Chat Update New</label> 
+					 <p class="input-group"> 
+						<div id='editText'></div>
+						 <span class="input-group-btn"></span> 
+					 </p> 
+				</form> 
+				<button type="submit" class="btn btn-primary" ng-click="updateChat(textSave)">Update</button> 
+			</div>
+	<!-- 			<span class="input-group-btn">
+				  </span>
+			</p>
+			</form>
+					<button type="submit" class="btn btn-primary" ng-click="updateChat(textSave)">Update</button>
+				</div> -->
+				<!--   </div> -->
+
+		<!--  <div ng-repeat="text in texts" ng-if="$first">
+					<textarea rows="4" cols="50" ng-model="$parent.updateMessage">
+						{{text.message}}
+					</textarea>
+		  </div> -->
+	<!-- 			<div ng-show="opened">
+
+			   <form class="chat-update-form-new">
+			<label>Chat Update New</label>
+			<p class="input-group">
+				<div id='editText'></div>
+				<span class="input-group-btn">
+				  </span>
+			</p>
+	  </form>
+					<button type="submit" class="btn btn-primary" ng-click="updateChat(textSave)">Update</button>
+				</div> -->
+
+		 <form class="chat-update-form">
+		<label>Chat Update</label>
+		<p class="input-group">
+		  <!-- <input type="text" class="form-control" placeholder="Update here." ng-model="updateMessage"> -->
+		  <span class="input-group-btn">
+		  </span>
+		</p>
+	  </form>
+	  
+	</div>
+
+	<footer class="footer">
+	  <div class="container">
+		  <p><a href="https://twitter.com/tyhenkel">@tyhenkel</a> |
+			 <a href="https://github.com/DaftMonk/generator-angular-fullstack/issues?state=open">Issues</a></p>
+	  </div>
+	</footer>
+	<div class="col-md-1  col-xs-0"></div>
 </div>
-
-<footer class="footer">
-  <div class="container">
-      <p><a href="https://twitter.com/tyhenkel">@tyhenkel</a> |
-         <a href="https://github.com/DaftMonk/generator-angular-fullstack/issues?state=open">Issues</a></p>
-  </div>
-</footer>

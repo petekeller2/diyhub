@@ -1,69 +1,73 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
-<div class="container-fluid margin-content">
-	<div ng-show="read">
-		<div ng-hide="opened"> 
-		  <h1> Guide: </h1>
-		  <div ng-repeat="text in texts | filter: text._id = textSelected._id">
-			  <p ng-if="text.author != undefined"> Written by: {{text.author}} </p>
-			  <p ng-if="text.author == undefined"> Written by an anonymous user </p>
-			  <p ng-if="text.editors != undefined"> Edits: {{text.editors}}</p>
-			  <p ng-click="toggle(text)" id="article">{{text.content}}</p>
-			  <div ng-show="viewEdits">
-				<h1> Edits: </h1>
-				<div ng-repeat="edit in edits | filter: edit.link = textSelected._id">
-				   <p ng-if="edit.editor != undefined"> Edit made by: {{edit.editor}} </p>
-				   <p ng-if="edit.editor == undefined"> Edit made by an anonymous user </p>
-				   <p> {{edit.editedContent}} </p>
-				   <button ng-if="text.author == getCurrentUser().name" type="submit" class="btn btn-primary" ng-click="acceptEdit(edit.editedContent, edit.editor, edit.link, text.editors)">Accept Edit</button>
-				   <hr></hr>
-				</div>
-			  </div>		 
-			  <div ng-if="text.pendingEditCount == 0">
-				<button type="submit" class="btn btn-primary" ng-click="back()">Back</button>
+<div class="row container-fluid">
+	<div class="col-md-1 col-xs-0"></div>
+	<div class="container-fluid margin-content col-md-10 col-xs-12">
+		<div ng-show="read">
+			<div ng-hide="opened"> 
+			  <h1> Guide: </h1>
+			  <div ng-repeat="text in texts | filter: text._id = textSelected._id">
+				  <p ng-if="text.author != undefined"> Written by: {{text.author}} </p>
+				  <p ng-if="text.author == undefined"> Written by an anonymous user </p>
+				  <p ng-if="text.editors != undefined"> Edits: {{text.editors}}</p>
+				  <p ng-click="toggle(text)" id="article">{{text.content}}</p>
+				  <div ng-show="viewEdits">
+					<h1> Edits: </h1>
+					<div ng-repeat="edit in edits | filter: edit.link = textSelected._id">
+					   <p ng-if="edit.editor != undefined"> Edit made by: {{edit.editor}} </p>
+					   <p ng-if="edit.editor == undefined"> Edit made by an anonymous user </p>
+					   <p> {{edit.editedContent}} </p>
+					   <button ng-if="text.author == getCurrentUser().name" type="submit" class="btn btn-primary" ng-click="acceptEdit(edit.editedContent, edit.editor, edit.link, text.editors)">Accept Edit</button>
+					   <hr></hr>
+					</div>
+				  </div>		 
+				  <div ng-if="text.pendingEditCount == 0">
+					<button type="submit" class="btn btn-primary" ng-click="back()">Back</button>
+				  </div>
+				  <div ng-if="viewEdits == false && text.pendingEditCount != 0">
+					<button type="submit" class="btn btn-primary" ng-click="back()">Back</button>
+					<button type="submit" class="btn btn-primary" ng-click="showEdits()">Show Edits</button>
+				  </div>
+				  <div ng-if="viewEdits == true && text.pendingEditCount != 0">
+					<button type="submit" class="btn btn-primary" ng-click="back()">Back</button>
+					<button type="submit" class="btn btn-primary" ng-click="showEdits()">Hide Edits</button> 
+				  </div>
 			  </div>
-			  <div ng-if="viewEdits == false && text.pendingEditCount != 0">
-			  	<button type="submit" class="btn btn-primary" ng-click="back()">Back</button>
-				<button type="submit" class="btn btn-primary" ng-click="showEdits()">Show Edits</button>
-			  </div>
-			  <div ng-if="viewEdits == true && text.pendingEditCount != 0">
-			  	<button type="submit" class="btn btn-primary" ng-click="back()">Back</button>
-				<button type="submit" class="btn btn-primary" ng-click="showEdits()">Hide Edits</button> 
-			  </div>
-		  </div>
+			</div>
+		</div>
+		<div ng-show="opened">
+			<form class="chat-update-form-new"> 
+				<p class="input-group"> 
+					<div id='editText'></div>
+				</p> 
+			</form> 
+			<button type="submit" class="btn btn-primary" ng-click="updateInstruction(textSave)">Update</button> 
+			<button type="submit" class="btn btn-primary" ng-click="cancel()">Cancel</button> 
+		</div>
+		<div ng-hide="read || writeGuide">
+			<div>
+				<input type="text" ng-model="searchTitle">
+				<button type="submit" class="btn btn-primary" ng-click="diyWriteBack()">Write a guide </button> 
+			</div>
+			<div class="col-md-4 col-lg-4 col-sm-6 repeat-item" ng-repeat="text in texts | filter:{title:searchTitle}">
+				<p ng-click="view(text)">{{text.title}}</p>
+			</div>
+		</div>
+		<div ng-show="writeGuide">
+			<form id="instruction-form">
+				<h1 class="text-center">Add a guide</h1>
+				<p class="input-group centered" ng-class="{'has-error':formCheckTitle}">
+					<input type="text" class="form-control text-center" placeholder="Write the title here." ng-model="newTitle"/>
+				</p>
+				<br></br>
+				<p ng-class="{'has-error':formCheckContent}">
+					<textarea ng-model="newContent" class="boxsizingBorder form-control text-center" form="instruction-form" placeholder=" Write the guide here."></textarea>
+				</p>
+				<span class="centered">
+					<button class="btn btn-primary" ng-click="diyWrite()">Add New Message</button>
+					<button class="btn btn-primary" ng-click="diyWriteBack()">Back </button> 
+				</span>
+			</form>
 		</div>
 	</div>
-	<div ng-show="opened">
-		<form class="chat-update-form-new"> 
-			<p class="input-group"> 
-				<div id='editText'></div>
-			</p> 
-		</form> 
-		<button type="submit" class="btn btn-primary" ng-click="updateInstruction(textSave)">Update</button> 
-		<button type="submit" class="btn btn-primary" ng-click="cancel()">Cancel</button> 
-	</div>
-	<div ng-hide="read || writeGuide">
-		<div>
-			<input type="text" ng-model="searchTitle">
-			<button type="submit" class="btn btn-primary" ng-click="diyWriteBack()">Write a guide </button> 
-		</div>
-		<div class="col-md-4 col-lg-4 col-sm-6 repeat-item" ng-repeat="text in texts | filter:{title:searchTitle}">
-			<p ng-click="view(text)">{{text.title}}</p>
-		</div>
-	</div>
-	<div ng-show="writeGuide">
-		<form id="instruction-form">
-			<h1 class="text-center">Add a guide</h1>
-			<p class="input-group centered" ng-class="{'has-error':formCheckTitle}">
-				<input type="text" class="form-control text-center" placeholder="Write the title here." ng-model="newTitle"/>
-			</p>
-			<br></br>
-			<p ng-class="{'has-error':formCheckContent}">
-				<textarea ng-model="newContent" class="boxsizingBorder form-control text-center" form="instruction-form" placeholder=" Write the guide here."></textarea>
-			</p>
-			<span class="centered">
-				<button class="btn btn-primary" ng-click="diyWrite()">Add New Message</button>
-				<button class="btn btn-primary" ng-click="diyWriteBack()">Back </button> 
-			</span>
-		</form>
-	</div>
+	<div class="col-md-1 col-xs-0"></div>
 </div>

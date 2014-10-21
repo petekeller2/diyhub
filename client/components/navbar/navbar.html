@@ -1,5 +1,7 @@
 <div class="navbar navbar-default navbar-fixed-top" ng-controller="NavbarCtrl">
   <div class="container-fluid">
+    <div ng-show="upperLeft" class="leftCorner"></div>
+   <div ng-show="upperRight" class="rightCorner"></div>
     <div class="navbar-header">
       <button class="navbar-toggle" type="button" ng-click="isCollapsed = !isCollapsed">
         <span class="sr-only">Toggle navigation</span>

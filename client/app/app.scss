@@ -22,10 +22,11 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 }
 
 //provides margins for desktop users only
-	@media screen and (min-width: 500px) {
+	@media screen and (min-width: 990px) {
 		.margin-content {
-			width:80%;
-			margin-top: 60px; //might have to get height of navbar for screen compatibility
+			//width:80%;
+			//@extend .col-md-8;
+			margin-top: 5%; //might have to get height of navbar for screen compatibility
 		}
 		//centers app name in the navbar
 		.navbar-brand {
@@ -34,10 +35,23 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 			top:0%;
 		}
 	}
+	@media screen and (max-width: 990px) {
+		.margin-content {
+			//width:80%;
+			//@extend .col-md-8;
+			margin-top: 10.3%; //might have to get height of navbar for screen compatibility
+		}
+		//centers app name in the navbar
+		.navbar-brand {
+			position: absolute;
+			left:43%;
+			top:0%;
+		}
+	}
 	@media screen and (max-width: 500px) {
 		.margin-content {
-			width:100%;		//unnecessary but will be kept for possible future changes
-			margin-top: 60px;
+			//width:100%;		//unnecessary but will be kept for possible future changes
+			margin-top: 15%;
 		}
 		//put app name on the left side of the navbar
 		.navbar-brand {
@@ -60,4 +74,5 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 @import 'admin/admin.scss';
 @import 'guides/guides.scss';
 @import 'main/main.scss';
+@import 'navbar/navbar.scss';
 // endinjector
