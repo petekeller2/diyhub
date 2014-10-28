@@ -166,21 +166,52 @@ angular.module('DIYhub')
 	 //if($scope.compareNew.length>$scope.compareOld.length)
 	 
 	 
-	 
-/*	 YESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS FINALLY ----------------------------------- ugdyi78g 78 6f7t8 d76t md
-var getAddedorRemovedItem = function (sourceArray1, sourceArray2) {
-    var added = [], removed = [];
+//for suggested changes	, maybe not assign function as variable   //bool changed to a string for 4
+var getAddedorRemovedItem = function (sourceArray1, sourceArray2, bool) {
+    var added = [], addedLoc = [], removed = [], removeLoc = [], i=0;
     sourceArray1.forEach(function(item){
+		i++;
         if (sourceArray2.indexOf(item) == -1) {
-            removed.push(item);
-        }
-    });
-    sourceArray2.forEach(function (item) {
-        if (sourceArray1.indexOf(item) == -1) {
+			//console.log(item);
+			console.log(i);
+			addedLoc.push(i);
             added.push(item);
         }
-   });*/
-	 
+    });
+	console.log(addedLoc);
+	i=0;
+    sourceArray2.forEach(function (item) {
+		i++;
+        if (sourceArray1.indexOf(item) == -1) {
+			removeLoc.push(i);
+            removed.push(item);
+        }
+   });
+   console.log(removeLoc);
+   
+   //console.log(added);
+   //console.log(removed);
+   if(bool==true)
+   {
+		return removed;
+   }
+   else if(bool==false)
+   {
+		return added;
+   }
+   else
+   {
+		console.log('wat');
+   }
+}
+  
+  var dog = getAddedorRemovedItem($scope.compareNew,$scope.compareOld, true);
+  console.log("removed: " + dog);
+  var cat = getAddedorRemovedItem($scope.compareNew,$scope.compareOld, false);
+  console.log("added: " + cat);
+  //console.log(getAddedorRemovedItem($scope.compareNew,$scope.compareOld, false));
+
+	 /*
 	 var insertions=[];//rename to insertions
 	 var deletions=[];
 	 var storeDeletions=[];
@@ -270,8 +301,8 @@ var getAddedorRemovedItem = function (sourceArray1, sourceArray2) {
 					//insertions[i3-2,i3-1,i3]=false; //probably have to break this up into 3 lines
 					/* insertions[i3-2]=false;
 					insertions[i3-1]=false; */
-					insertions[i]=false;
-					insertionCheck++;
+					//insertions[i]=false;
+					//insertionCheck++;
 					/* checkDel=true;
 					i5=i;
 					while(checkDel===true)
@@ -287,7 +318,7 @@ var getAddedorRemovedItem = function (sourceArray1, sourceArray2) {
 						}
 					} */
 					
-					i2=$scope.compareOld.length;
+					//i2=$scope.compareOld.length;
 					//i++;
 					
 					
@@ -295,7 +326,7 @@ var getAddedorRemovedItem = function (sourceArray1, sourceArray2) {
 				}//look up mongoose query for updates updating insertions additions ect
 				i3++;
 				i2--; */
-			}
+		/*	}
 
 				//i3++;
 		}
@@ -310,7 +341,7 @@ var getAddedorRemovedItem = function (sourceArray1, sourceArray2) {
 		console.log("COMPARE USEING OLD INSERTIONS: " + insertions[i6]);//was i4
 		console.log("COMPARE USEING OLD DELETIONS: " + storeDeletions[i6]);//was i20
 	  }
-	 
+	 */
 
 	 if($scope.getCurrentUser().name === instruction.author && instruction.author !== undefined)
 	 {
@@ -330,7 +361,8 @@ var getAddedorRemovedItem = function (sourceArray1, sourceArray2) {
 				console.log("edit count: " + $scope.editCount);
 				$http.put('/api/instructions/' + instruction._id, { pendingEditCount: $scope.editCount});
 			});
-			
+		
+		//this if is only for testing purposes		
 		if($scope.getCurrentUser().name === undefined)
 		{
 			$http.post('/api/edits', { editedContent: $scope.editedContent, editor: "anonymous on: " + Date.now(), link: instruction._id});
