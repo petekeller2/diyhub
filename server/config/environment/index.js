@@ -3,6 +3,8 @@
 var path = require('path');
 var _ = require('lodash');
 
+heroku config:set DOMAIN=stormy-mountain-6333.herokuapp.com
+
 function requiredProcessEnv(name) {
   if(!process.env[name]) {
     throw new Error('You must set the ' + name + ' environment variable');
