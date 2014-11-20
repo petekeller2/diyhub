@@ -112,24 +112,27 @@ angular.module('DIYhub')
 	  $scope.newContent = '';
     }; */
 	
-	$scope.diyWrite = function() {
-	$scope.formCheckTitle = false;
-	$scope.formCheckContent = false;
-	if($scope.newTitle === '') {
-		$scope.formCheckTitle = true;
-		console.log("Was not sent to database, no title");
-        return;
-      }
-	if($scope.newContent === '') {
-		$scope.formCheckContent = true;
-		console.log("Was not sent to database, no content");
-        return;	
-	}
-      $http.post('/api/instructions', { title: $scope.newTitle, content: $scope.newContent, author: $scope.getCurrentUser().name, pendingEditCount: 0});
-      $scope.newTitle = '';
-	  $scope.newContent = '';
-	  console.log("Title: " + $scope.newTitle + " Content: " + $scope.newContent + " was sent to database");
-	  $scope.diyWriteBack();
+	$scope.diyWrite = function() 
+	{
+		$scope.formCheckTitle = false;
+		$scope.formCheckContent = false;
+		if($scope.newTitle === '') 
+		{
+			$scope.formCheckTitle = true;
+			console.log("Was not sent to database, no title");
+			return;
+		}
+		if($scope.newContent === '')
+		{
+			$scope.formCheckContent = true;
+			console.log("Was not sent to database, no content");
+			return;	
+		}
+	    $http.post('/api/instructions', { title: $scope.newTitle, content: $scope.newContent, author: $scope.getCurrentUser().name, pendingEditCount: 0});
+	    $scope.newTitle = '';
+	    $scope.newContent = '';
+	    console.log("Title: " + $scope.newTitle + " Content: " + $scope.newContent + " was sent to database");
+	    $scope.diyWriteBack();
 	};
 	
     $scope.updateInstruction = function(instruction) {
@@ -165,7 +168,10 @@ angular.module('DIYhub')
 	  
 	 //if($scope.compareNew.length>$scope.compareOld.length)
 	 
-	 
+/*  This shows what the edit added or removed from the original guide.
+ *
+ *
+*/ 
 //for suggested changes	, maybe not assign function as variable   //bool changed to a string for 4
 var getAddedorRemovedItem = function (sourceArray1, sourceArray2, bool) {
     var added = [], addedLoc = [], removed = [], removeLoc = [], i=0;
@@ -201,7 +207,7 @@ var getAddedorRemovedItem = function (sourceArray1, sourceArray2, bool) {
    }
    else
    {
-		console.log('wat');
+		console.log('getAddedorRemovedItem error');
    }
 }
   
@@ -211,137 +217,7 @@ var getAddedorRemovedItem = function (sourceArray1, sourceArray2, bool) {
   console.log("added: " + cat);
   //console.log(getAddedorRemovedItem($scope.compareNew,$scope.compareOld, false));
 
-	 /*
-	 var insertions=[];//rename to insertions
-	 var deletions=[];
-	 var storeDeletions=[];
-	 var wasDeletions = false;
-	 //var insertionCheck = 0;
-	 var checkDel=false;
-	 var i5;
-	  //var streak=0; //look up clojures
-	  //console.log("streak "  + streak);
-	  for(var i=0; i<$scope.compareNew.length; i++)
-	  {
-	  	console.log("Reached the loop! " + i);
-		var insertionCheck = 0;
-		//var i3=0;//was var i3=i;
-		for(var i2=0; i2<$scope.compareOld.length; i2++)
-		{
-			if($scope.compareNew[i]===undefined)
-			{
-				console.error("COMPARE LOOP ERROR, NEW IS UNDEFINED");
-			}
-			if($scope.compareNew[i]===null)
-			{
-				console.error("COMPARE LOOP ERROR, NEW IS NULL");
-			}
-			if($scope.compareOld[i2]===undefined)
-			{
-				console.error("COMPARE LOOP ERROR, OLD IS UNDEFINED");
-			}
-			if($scope.compareOld[i2]===null)
-			{
-				console.error("COMPARE LOOP ERROR, OLD IS NULL");
-			}
-		
-			if($scope.compareNew[i]!==$scope.compareOld[i2])
-			{
-				
-				//streak=0;
-				for(var i3=i2; i3<$scope.compareNew.length; i3++)//i2 was insertionCheck
-				{
-					console.log("i3: " + i3);
-					//deletions[i3];
-					if($scope.compareNew[i]===$scope.compareOld[i3])//<-----------------------------------------
-					{
-						//i3++;
-						deletions[i3]=true;
-						//i3--;
-						console.log("Deletions were made at index: " + i3);
-						wasDeletions=true;
-						i3=$scope.compareNew.length;
-					}
-
-				}
-				
-				if(wasDeletions===false)
-				{
-					console.log("Deletions array before empty " + deletions);
-					deletions=[];
-					console.log("Deletions array after empty " + deletions);
-					console.log("Insertion! " + i);
-					insertions[i]=true;
-				}
-				if(wasDeletions===true)
-				{
-					wasDeletions=false;
-					//vsr i20 = something else something else is 0 if storeDel length is undefined
-					for(var i20=storeDeletions.length, i9=0; i9<deletions.length; i9++, i20++)
-					{
-						//i20=storeDeletions.length;
-						console.log("i20 " + i20);
-						storeDeletions[i20]=deletions[i9];
-					}
-					deletions=[];
-					i3=$scope.compareNew.length;
-				}
-				if(wasDeletions===undefined)
-				{
-					console.log("INNER LOOP ERROR FOR COMPARE NEW TO OLD GUIDE");
-				}
-			}
-			if($scope.compareNew[i]===$scope.compareOld[i2])//i here and below were i3
-			{
-				console.log("Match! " + i);
-/* 				streak++;
-				if(streak>1)
-				{ */
-				//if both equal to each other than no insertions
-					//insertions[i3-2,i3-1,i3]=false; //probably have to break this up into 3 lines
-					/* insertions[i3-2]=false;
-					insertions[i3-1]=false; */
-					//insertions[i]=false;
-					//insertionCheck++;
-					/* checkDel=true;
-					i5=i;
-					while(checkDel===true)
-					{
-						i5--;
-						if($scope.compareNew[i5]===$scope.compareOld[i5] && insertions[i5]===false && i5>=0)
-						{
-							console.log("Deletion! " + i5);
-						}
-						else
-						{
-							checkDel==false;
-						}
-					} */
-					
-					//i2=$scope.compareOld.length;
-					//i++;
-					
-					
-				/* 	console.log("Streak! " + i3);
-				}//look up mongoose query for updates updating insertions additions ect
-				i3++;
-				i2--; */
-		/*	}
-
-				//i3++;
-		}
-	  }
-	  for(var i4=0; i4<$scope.compareNew.length; i4++)
-	  {
-		console.log("COMPARE USEING NEW INSERTIONS: " + insertions[i4]);
-		console.log("COMPARE USEING NEW DELETIONS: " + storeDeletions[i4]);//was i20
-	  }
-	  for(var i6=0; i6<$scope.compareOld.length; i6++)//was i4
-	  {
-		console.log("COMPARE USEING OLD INSERTIONS: " + insertions[i6]);//was i4
-		console.log("COMPARE USEING OLD DELETIONS: " + storeDeletions[i6]);//was i20
-	  }
-	 */
+	
 
 	 if($scope.getCurrentUser().name === instruction.author && instruction.author !== undefined)
 	 {

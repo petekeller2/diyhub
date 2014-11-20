@@ -1,0 +1,63 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+<div class="row container-fluid">
+	<div class="col-md-1 col-xs-0"></div>
+	<div class="container-fluid margin-content col-md-10 col-xs-12">
+		<div ng-show="read">
+			<h1> Article: </h1>
+			<div ng-repeat="article in articles | filter: article._id = articleSelected._id">
+				<p ng-if="article.author != undefined"> Written by: {{article.author}} </p>
+				<p ng-if="article.author == undefined"> Written by an anonymous user </p>
+				<p>{{article.content}}</p>
+				<textarea ng-model="newComment" class="boxsizingBorder form-control text-center" form="comment-form" placeholder=" Write the comment here."></textarea>
+				<button class="btn btn-primary" ng-click="writeComment(article.link)">Add New Comment</button>
+				<div ng-show="viewComments">
+					<h1> Comments: </h1>
+					<div ng-repeat="comment in comments | filter: comment.link = articleSelected._id">
+					   <p ng-if="comment.commenter != undefined"> Edit made by: {{comment.commenter}} </p>
+					   <p ng-if="comment.commenter == undefined"> Edit made by an anonymous user </p>
+					   <p> {{comment.commentContent}} </p>
+					   <hr></hr>
+					</div>
+				</div>
+				<div ng-if="text.pendingEditCount == 0">
+					<button type="submit" class="btn btn-primary" ng-click="back()">Back</button>
+				</div>
+				<div ng-if="viewComments == false && text.pendingEditCount != 0">
+					<button type="submit" class="btn btn-primary" ng-click="back()">Back</button>
+					<button type="submit" class="btn btn-primary" ng-click="showEdits()">Show Edits</button>
+				</div>
+				<div ng-if="viewComments == true && text.pendingEditCount != 0">
+					<button type="submit" class="btn btn-primary" ng-click="back()">Back</button>
+					<button type="submit" class="btn btn-primary" ng-click="showEdits()">Hide Edits</button> 
+				</div>				
+			</div>
+			<button type="submit" class="btn btn-primary" ng-click="back()">Back</button>
+		</div>
+		<div ng-hide="read || writeArticle">
+			<div>
+				<input type="text" ng-model="searchTitle">
+				<button type="submit" class="btn btn-primary" ng-click="articleWriteBack()">Write an article </button> 
+			</div>
+			<div class="col-md-4 col-lg-4 col-sm-6 repeat-item" ng-repeat="article in articles | filter:{title:searchTitle}">
+				<p ng-click="view(article)">{{article.title}}</p>
+			</div>
+		</div>
+		<div ng-show="writeArticle">
+			<form id="article-form">
+				<h1 class="text-center">Add an article</h1>
+				<p class="input-group centered" ng-class="{'has-error':formCheckTitleArticle}">
+					<input type="text" class="form-control text-center" placeholder="Write the title here." ng-model="newTitleArticle"/>
+				</p>
+				<br></br>
+				<p ng-class="{'has-error':formCheckContentArticle}">
+					<textarea ng-model="newContentArticle" class="boxsizingBorder form-control text-center" form="instruction-form" placeholder=" Write the guide here."></textarea>
+				</p>
+				<span class="centered">
+					<button class="btn btn-primary" ng-click="articleWrite()">Add New Article</button>
+					<button class="btn btn-primary" ng-click="articleWriteBack()">Back </button> 
+				</span>
+			</form>
+		</div>
+	</div>
+    <div class="col-md-1 col-xs-0"></div>
+</div>

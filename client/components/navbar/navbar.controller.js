@@ -9,6 +9,10 @@ angular.module('DIYhub')
 	{
       'title': 'Guides',
       'link': '/guides'
+    },
+	{
+      'title': 'Articles',
+      'link': '/articles'
     }
 	];
 
