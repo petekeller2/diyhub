@@ -3,7 +3,7 @@
 var path = require('path');
 var _ = require('lodash');
 
-heroku config:set DOMAIN=stormy-mountain-6333.herokuapp.com
+//heroku config:set DOMAIN=young-ridge-4796.herokuapp.com
 
 function requiredProcessEnv(name) {
   if(!process.env[name]) {
@@ -21,7 +21,7 @@ var all = {
   root: path.normalize(__dirname + '/../../..'),
 
   // Server port
-  port: process.env.PORT || 9000,
+  port: process.env.PORT || 8000,
 
   // Should we populate the DB with sample data?
   seedDB: false,

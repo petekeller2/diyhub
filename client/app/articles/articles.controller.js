@@ -18,6 +18,7 @@ angular.module('DIYhub')
 	$scope.read = false;
 	$scope.formCheckTitleArticle = false;
 	$scope.formCheckContentArticle = false;
+	$scope.formCheckComment = false;
 	$scope.writeArticle = false;
 	$scope.viewComments = false;
 	
@@ -68,19 +69,40 @@ angular.module('DIYhub')
 		console.log("Was not sent to database, no content");
         return;	
 	}
-      $http.post('/api/articles', { title: $scope.newTitleArticle, content: $scope.newContentArticle, author: $scope.getCurrentUser().name});
+      $http.post('/api/articles', { title: $scope.newTitleArticle, content: $scope.newContentArticle, author: $scope.getCurrentUser().name, numberOfComments: 0});
       $scope.newTitleArticle = '';
 	  $scope.newContentArticle = '';
 	  console.log("Title: " + $scope.newTitleArticle + " Content: " + $scope.newContentArticle + " was sent to database");
 	  $scope.articleWriteBack();
 	};
 
-	$scope.writeComment = function(article) 
+ 	$scope.writeComment = function(article) 
 	{
-		$http.post('/api/comments', { commentContent: $scope.newComment, commenter: $scope.newContentArticle, author: $scope.getCurrentUser().name + " on: " + Date.now()});
-		$http.put('/api/articles/' + article, { numberOfComments: numberOfComments++});//get first then add?
+	
+		console.log("newComment: " + $scope.newComment);
+	
+		$scope.formCheckComment = false;
+		if($scope.newComment === '') {
+			$scope.formCheckComment = true;
+			console.log("Was not sent to database, no comment");
+			return;
+		}
+		
+		console.log("newComment: " + $scope.newComment);
+		
+		$http.post('/api/comments', { commentContent: $scope.newComment, commenter: $scope.getCurrentUser().name + " on: " + Date.now(), link: article._id});
+		
+		$scope.numOfComments = article; 
+		console.log("numOfComments: " + $scope.numOfComments);
+		
+		$scope.numOfComments = $scope.numOfComments.numberOfComments;		
+		$scope.commentCount = ($scope.numOfComments + 1);
+		console.log("commentCount: " + $scope.commentCount);
+		
+		$http.put('/api/articles/' + article._id, { numberOfComments: $scope.commentCount});
+		
 		$scope.newComment = '';
-	};
+	}; 
 	
 	$scope.$on('$destroy', function () 
 	{

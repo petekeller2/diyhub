@@ -44,19 +44,20 @@ angular.module('DIYhub')
 //	$scope.modified() = main.isModify();
   //  $scope.opened=false;
   
- $scope.toggle = function(text) {
-    $scope.opened = !$scope.opened;
-    //console.log($scope.opened);
-	$scope.textSave = text;
-	console.log("Toggle value in angular scope: " + $scope.textSave); 
-	$scope.width = document.getElementById('article').offsetWidth;
-	$scope.hieght = document.getElementById('article').offsetHeight;
-	console.log("Article width is " + $scope.width + " and article height is " + $scope.hieght);
- 	$scope.editContent = '<textarea id="txtArea" rows="4" cols="50">' + $scope.textSave.content + '</textarea>'
-	document.getElementById('editText').innerHTML = $scope.editContent; 
-	//console.log($scope.content);
-  //  $scope.$apply();
-};
+	 $scope.toggle = function(text) {
+		$scope.opened = !$scope.opened;
+		//console.log($scope.opened);
+		$scope.textSave = text;
+		console.log("Toggle value in angular scope: " + $scope.textSave); 
+		$scope.width = document.getElementById('article').offsetWidth;
+		$scope.hieght = document.getElementById('article').offsetHeight;
+		console.log("Article width is " + $scope.width + " and article height is " + $scope.hieght);
+		$scope.editContent = '<textarea id="txtArea" rows="4" cols="50">' + $scope.textSave.content + '</textarea>'
+		document.getElementById('editText').innerHTML = $scope.editContent; 
+		//console.log($scope.content);
+	  //  $scope.$apply();
+	};
+	
 	$http.get('/api/edits').success(function(edits)
 	{
 		$scope.edits = edits;
