@@ -9,15 +9,19 @@
 					<p ng-if="article.author != undefined"> Written by: {{article.author}} </p>
 					<p ng-if="article.author == undefined"> Written by an anonymous user </p>
 					<p>{{article.content}}</p>
-					<form id="comment-form">
-						<p class="input-group centered" ng-class="{'has-error':formCheckComment}">
-							<textarea ng-model="newComment" class="boxsizingBorder form-control text-center" form="comment-form" placeholder=" Write the comment here."></textarea>
-						</p>
-						<span class="centered">
-							<button class="btn btn-primary" ng-click="writeComment(article)">Add New Comment</button>
-						</span>
-					</form>
-					<div ng-show="viewComments">
+					<!--
+					<div ng-show="commentWriteShow">
+						<form id="comment-form">
+							<p class="input-group centered" ng-class="{'has-error':formCheckComment}">
+								<input type="text" class="boxsizingBorder form-control text-center" form="comment-form" placeholder=" Write the comment here." ng-model="newComment"/>
+							</p>
+							<span class="centered">
+								<button class="btn btn-primary" ng-click="writeComment(article)">Add New Comment</button>
+							</span>
+						</form>
+					</div>
+					-->
+					<div ng-if="viewComments == true && article.numberOfComments != 0">
 						<h1> Comments: </h1>
 						<div ng-repeat="comment in comments | filter: comment.link = articleSelected._id">
 						   <p ng-if="comment.commenter != undefined"> Edit made by: {{comment.commenter}} </p>
@@ -28,15 +32,19 @@
 					</div>
 					<div ng-if="article.numberOfComments == 0">
 						<button type="submit" class="btn btn-primary" ng-click="back()">Back</button>
+						<!--<button type="submit" class="btn btn-primary" ng-click="showWriteComment()">Write Comment</button>-->
+
 					</div>
 					<div ng-if="viewComments == false && article.numberOfComments != 0">
 						<button type="submit" class="btn btn-primary" ng-click="back()">Back</button>
-						<button type="submit" class="btn btn-primary" ng-click="showComments()">Show Comments</button>
+						<!--<button type="submit" class="btn btn-primary" ng-click="showComments()">Show Comments</button>
+						<button type="submit" class="btn btn-primary" ng-click="showWriteComment()">Write Comment</button>-->
 					</div>
 					<div ng-if="viewComments == true && article.numberOfComments != 0">
 						<button type="submit" class="btn btn-primary" ng-click="back()">Back</button>
-						<button type="submit" class="btn btn-primary" ng-click="showComments()">Hide Comments</button> 
-					</div>				
+						<!--<button type="submit" class="btn btn-primary" ng-click="showComments()">Hide Comments</button> 
+						<button type="submit" class="btn btn-primary" ng-click="showWriteComment()">Write Comment</button>-->
+					</div>
 				</div>
 			</div>
 		</div>

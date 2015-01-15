@@ -21,6 +21,11 @@ angular.module('DIYhub')
 	$scope.formCheckComment = false;
 	$scope.writeArticle = false;
 	$scope.viewComments = false;
+	$scope.commentWriteShow = false;
+	
+	$scope.showWriteComment = function() {
+		$scope.commentWriteShow = !$scope.commentWriteShow;
+	};
 	
 	$scope.showComments = function() {
 		$scope.viewComments = !$scope.viewComments;
@@ -76,11 +81,14 @@ angular.module('DIYhub')
 	  $scope.articleWriteBack();
 	};
 
+	
  	$scope.writeComment = function(article) 
 	{
 	
 		console.log("newComment: " + $scope.newComment);
-	
+		console.log("article: " + article);
+		console.log("commenter: " + $scope.getCurrentUser().name + " on: " + Date.now());
+
 		$scope.formCheckComment = false;
 		if($scope.newComment === '') {
 			$scope.formCheckComment = true;
@@ -102,6 +110,7 @@ angular.module('DIYhub')
 		$http.put('/api/articles/' + article._id, { numberOfComments: $scope.commentCount});
 		
 		$scope.newComment = '';
+		$scope.commentWriteShow = !$scope.commentWriteShow;
 	}; 
 	
 	$scope.$on('$destroy', function () 
